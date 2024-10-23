@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .info-cuadro {
+            background-color: rgb(154, 222, 235);
+            border: 3px solid #140514; /* Borde  */
+            padding: 20px; /* Espacio interno */
+            margin-bottom: 20px; /* Espacio inferior */
+            text-align: center; /* Centrar texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cuadro de información -->
+        <div class="info-cuadro">
+            <h3>SEGUNDO PARCIAL TEM-742</h3>
+            <p>Nombre: Lea Lisbeth Condori Mamani</p>
+            <p>Carnet CI: 13299051</p>
+        </div>
+
+      <h2  class="mt-4">GESTION DE PRODUCTOS</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-info">
+              {{ messages[0] }}
+            </div>
+            
+          {% endif %}
+          
+        {% endwith %}
+    
+        <a href="{{ url_for('add_product') }}" class="btn btn-primary">Agregar Producto</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DESCRIPCION</th>
+                    <th>CANTIDAD</th>
+                    <th>PRECIO</th>
+                    <th>FECHA DE VENCIMIENTO</th>
+                    <th>CATEGORIA</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.cantidad }}</td>
+                    <td>{{ producto.precio }}</td>
+                    <td>{{ producto.fecha_vencimiento }}</td>
+                    <td>{{ producto.categoria }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_product', id_producto=producto.id) }}" class="btn btn-warning">Editar</a>
+                        <a href="{{ url_for('delete_product', id_producto=producto.id) }}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      
+    </div>
+</body>
+</html>
